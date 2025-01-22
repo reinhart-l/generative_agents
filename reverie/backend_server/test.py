@@ -8,7 +8,7 @@ import json
 import random
 import openai
 import time 
-
+from openai import
 from utils import *
 openai.api_key = openai_api_key
 
@@ -25,10 +25,12 @@ def ChatGPT_request(prompt):
     a str of GPT-3's response. 
   """
   # temp_sleep()
-  try: 
-    completion = openai.ChatCompletion.create(
-    model="gpt-3.5-turbo", 
-    messages=[{"role": "user", "content": prompt}]
+  try:
+    completion = client.chat.completions.create(
+      model="qwen-plus",  # 模型列表：https://help.aliyun.com/zh/model-studio/getting-started/models
+      messages=[
+        {'role': 'system', 'content': 'You are a helpful assistant.'},
+        {'role': 'user', 'content': '你是谁？'}],
     )
     return completion["choices"][0]["message"]["content"]
   
